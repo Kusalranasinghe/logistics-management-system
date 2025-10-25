@@ -10,8 +10,6 @@
 #define FUEL_PRICE 310.0
 
 
-
-
 typedef struct {
     char name[MAX_NAME_LEN];
 } City;
@@ -58,6 +56,7 @@ void listCities();
 void setDistance();
 void displayDistanceMatrix();
 void addDelivery();
+void generateReport();
 
 
 int main()
@@ -73,7 +72,7 @@ int main()
             case 2: setDistance(); break;
             case 3: displayDistanceMatrix(); break;
             case 4: addDelivery(); break;
-            case 5:
+            case 5: generateReport(); break;
             case 0: exit(0);
             default: printf("Invalid choice.\n");
         }
@@ -175,6 +174,21 @@ void addDelivery() {
     printf("Base Cost: %.2f LKR\nFuel Used: %.2f L\nFuel Cost: %.2f LKR\n", cost, fuelUsed, fuelCost);
     printf("Operational Cost: %.2f LKR\nProfit: %.2f LKR\nCustomer Charge: %.2f LKR\n", totalCost, profit, customerCharge);
     printf("Estimated Time: %.2f hours\n", time);
+
+}
+
+void generateReport() {
+    float totalDistance = 0, totalTime = 0, totalRevenue = 0, totalProfit = 0;
+    float maxDist = 0, minDist = 1e9;
+
+    for (int i = 0; i < deliveryCount; i++) {
+        totalDistance += deliveries[i].distance;
+        totalTime += deliveries[i].time;
+        totalRevenue += deliveries[i].customerCharge;
+        totalProfit += deliveries[i].profit;
+        if (deliveries[i].distance > maxDist) maxDist = deliveries[i].distance;
+        if (deliveries[i].distance < minDist) minDist = deliveries[i].distance;
+    }
 
 }
 
