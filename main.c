@@ -57,6 +57,7 @@ void addCity();
 void listCities();
 void setDistance();
 void displayDistanceMatrix();
+void addDelivery();
 
 
 int main()
@@ -71,7 +72,7 @@ int main()
             case 1: addCity(); break;
             case 2: setDistance(); break;
             case 3: displayDistanceMatrix(); break;
-            case 4:
+            case 4: addDelivery(); break;
             case 5:
             case 0: exit(0);
             default: printf("Invalid choice.\n");
@@ -126,7 +127,37 @@ void displayDistanceMatrix() {
     }
 }
 
+void addDelivery() {
+    if (deliveryCount >= MAX_DELIVERIES) {
+        printf("Delivery limit reached.\n");
+        return;
+    }
 
+    int src, dest, weight, vType;
+    listCities();
+    printf("Enter source city index: ");
+    scanf("%d", &src);
+    printf("Enter destination city index: ");
+    scanf("%d", &dest);
+    if (src == dest) {
+        printf("Source and destination cannot be the same.\n");
+        return;
+    }
+
+    printf("Enter weight (kg): ");
+    scanf("%d", &weight);
+    printf("Select vehicle (0=Van, 1=Truck, 2=Lorry): ");
+    scanf("%d", &vType);
+
+    if (weight > vehicles[vType].capacity) {
+        printf("Weight exceeds vehicle capacity.\n");
+        return;
+    }
+
+
+
+
+}
 
 
 
