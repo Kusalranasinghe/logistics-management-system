@@ -14,10 +14,13 @@ typedef struct {
 
 City cities[MAX_CITIES];
 int cityCount = 0;
+int distanceMatrix[MAX_CITIES][MAX_CITIES];
+
 
 
 void addCity();
 void listCities();
+void setDistance();
 
 
 
@@ -30,8 +33,8 @@ int main()
         printf("Enter choice: ");
         scanf("%d", &choice);
         switch (choice) {
-            case 1: addCity();
-            case 2:
+            case 1: addCity(); break;
+            case 2: setDistance(); break;
             case 3:
             case 4:
             case 5:
@@ -59,6 +62,26 @@ void listCities() {
         printf("%d. %s\n", i, cities[i].name);
     }
 }
+
+void setDistance() {
+    int i, j, d;
+    listCities();
+    printf("Enter source city index: ");
+    scanf("%d", &i);
+    printf("Enter destination city index: ");
+    scanf("%d", &j);
+    if (i == j) {
+        printf("Distance to same city is 0.\n");
+        distanceMatrix[i][j] = 0;
+        return;
+    }
+    printf("Enter distance between %s and %s: ", cities[i].name, cities[j].name);
+    scanf("%d", &d);
+    distanceMatrix[i][j] = d;
+    distanceMatrix[j][i] = d;
+}
+
+
 
 
 
