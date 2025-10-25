@@ -1,5 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <math.h>
+
+
+#define MAX_CITIES 30
+#define MAX_NAME_LEN 50
+
+
+typedef struct {
+    char name[MAX_NAME_LEN];
+} City;
+
+City cities[MAX_CITIES];
+int cityCount = 0;
+
+
+void addCity();
+
+
 
 int main()
 {
@@ -10,7 +29,7 @@ int main()
         printf("Enter choice: ");
         scanf("%d", &choice);
         switch (choice) {
-            case 1:
+            case 1: addCity();
             case 2:
             case 3:
             case 4:
@@ -22,3 +41,15 @@ int main()
 
     return 0;
 }
+
+void addCity() {
+    if (cityCount >= MAX_CITIES) {
+        printf("City limit reached.\n");
+        return;
+    }
+    printf("Enter city name: ");
+    scanf("%s", cities[cityCount].name);
+    cityCount++;
+}
+
+
