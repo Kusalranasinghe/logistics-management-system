@@ -61,10 +61,14 @@ void setDistance();
 void displayDistanceMatrix();
 void addDelivery();
 void generateReport();
+void saveRoutesToFile();
+void loadRoutesFromFile();
 
 
 int main()
 {
+    loadRoutesFromFile();
+
     int choice;
     while (1)
     {
@@ -95,6 +99,7 @@ int main()
             printf("Invalid choice.\n");
         }
     }
+    saveRoutesToFile();
 
     return 0;
 }
@@ -237,6 +242,48 @@ void generateReport()
 
 
 }
+
+void loadRoutesFromFile() {
+    FILE *fp = fopen("routes.txt", "r");
+    if (fp == NULL) return;
+
+    fscanf(fp, "%d", &cityCount);
+    for (int i = 0; i < cityCount; i++) {
+        fscanf(fp, "%s", cities[i].name);
+    }
+
+    for (int i = 0; i < cityCount; i++) {
+        for (int j = 0; j < cityCount; j++) {
+            fscanf(fp, "%d", &distanceMatrix[i][j]);
+        }
+    }
+
+    fclose(fp);
+}
+
+
+void saveRoutesToFile() {
+    FILE *fp = fopen("routes.txt", "w");
+    if (fp == NULL) {
+        printf("Error saving routes.\n");
+        return;
+    }
+
+    fprintf(fp, "%d\n", cityCount);
+    for (int i = 0; i < cityCount; i++) {
+        fprintf(fp, "%s\n", cities[i].name);
+    }
+
+    for (int i = 0; i < cityCount; i++) {
+        for (int j = 0; j < cityCount; j++) {
+            fprintf(fp, "%d ", distanceMatrix[i][j]);
+        }
+        fprintf(fp, "\n");
+    }
+
+    fclose(fp);
+}
+
 
 
 

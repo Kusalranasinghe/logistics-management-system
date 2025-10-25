@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1761403041 source:c:\users\lenovo\desktop\logistics-management-system\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+
