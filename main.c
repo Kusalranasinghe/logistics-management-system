@@ -17,6 +17,7 @@ int cityCount = 0;
 
 
 void addCity();
+void listCities();
 
 
 
@@ -51,5 +52,13 @@ void addCity() {
     scanf("%s", cities[cityCount].name);
     cityCount++;
 }
+
+void listCities() {
+    printf("Cities:\n");
+    for (int i = 0; i < cityCount; i++) {
+        printf("%d. %s\n", i, cities[i].name);
+    }
+}
+
 
 
