@@ -21,6 +21,7 @@ int distanceMatrix[MAX_CITIES][MAX_CITIES];
 void addCity();
 void listCities();
 void setDistance();
+void displayDistanceMatrix();
 
 
 
@@ -35,7 +36,7 @@ int main()
         switch (choice) {
             case 1: addCity(); break;
             case 2: setDistance(); break;
-            case 3:
+            case 3: displayDistanceMatrix(); break;
             case 4:
             case 5:
             case 0: exit(0);
@@ -79,6 +80,16 @@ void setDistance() {
     scanf("%d", &d);
     distanceMatrix[i][j] = d;
     distanceMatrix[j][i] = d;
+}
+
+void displayDistanceMatrix() {
+    printf("\nDistance Matrix:\n");
+    for (int i = 0; i < cityCount; i++) {
+        for (int j = 0; j < cityCount; j++) {
+            printf("%4d ", distanceMatrix[i][j]);
+        }
+        printf("\n");
+    }
 }
 
 
