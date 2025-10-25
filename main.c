@@ -10,11 +10,13 @@
 #define FUEL_PRICE 310.0
 
 
-typedef struct {
+typedef struct
+{
     char name[MAX_NAME_LEN];
 } City;
 
-typedef struct {
+typedef struct
+{
     char type[10];
     int capacity;
     float ratePerKm;
@@ -22,7 +24,8 @@ typedef struct {
     float efficiency;
 } Vehicle;
 
-typedef struct {
+typedef struct
+{
     int source;
     int destination;
     int weight;
@@ -42,7 +45,8 @@ City cities[MAX_CITIES];
 int cityCount = 0;
 int distanceMatrix[MAX_CITIES][MAX_CITIES];
 
-Vehicle vehicles[3] = {
+Vehicle vehicles[3] =
+{
     {"Van", 1000, 30, 60, 12},
     {"Truck", 5000, 40, 50, 6},
     {"Lorry", 10000, 80, 45, 4}
@@ -62,27 +66,43 @@ void generateReport();
 int main()
 {
     int choice;
-    while (1) {
+    while (1)
+    {
         printf("\n--- LOGISTICS MANAGEMENT SYSTEM ---\n");
         printf(" 1. Add City\n 2. Set Distance\n 3. Display Distance Matrix\n 4. Add Delivery\n 5. Generate Report\n 0. Exit\n");
         printf("Enter choice: ");
         scanf("%d", &choice);
-        switch (choice) {
-            case 1: addCity(); break;
-            case 2: setDistance(); break;
-            case 3: displayDistanceMatrix(); break;
-            case 4: addDelivery(); break;
-            case 5: generateReport(); break;
-            case 0: exit(0);
-            default: printf("Invalid choice.\n");
+        switch (choice)
+        {
+        case 1:
+            addCity();
+            break;
+        case 2:
+            setDistance();
+            break;
+        case 3:
+            displayDistanceMatrix();
+            break;
+        case 4:
+            addDelivery();
+            break;
+        case 5:
+            generateReport();
+            break;
+        case 0:
+            exit(0);
+        default:
+            printf("Invalid choice.\n");
         }
     }
 
     return 0;
 }
 
-void addCity() {
-    if (cityCount >= MAX_CITIES) {
+void addCity()
+{
+    if (cityCount >= MAX_CITIES)
+    {
         printf("City limit reached.\n");
         return;
     }
@@ -91,21 +111,25 @@ void addCity() {
     cityCount++;
 }
 
-void listCities() {
+void listCities()
+{
     printf("Cities:\n");
-    for (int i = 0; i < cityCount; i++) {
+    for (int i = 0; i < cityCount; i++)
+    {
         printf("%d. %s\n", i, cities[i].name);
     }
 }
 
-void setDistance() {
+void setDistance()
+{
     int i, j, d;
     listCities();
     printf("Enter source city index: ");
     scanf("%d", &i);
     printf("Enter destination city index: ");
     scanf("%d", &j);
-    if (i == j) {
+    if (i == j)
+    {
         printf("Distance to same city is 0.\n");
         distanceMatrix[i][j] = 0;
         return;
@@ -116,18 +140,23 @@ void setDistance() {
     distanceMatrix[j][i] = d;
 }
 
-void displayDistanceMatrix() {
+void displayDistanceMatrix()
+{
     printf("\nDistance Matrix:\n");
-    for (int i = 0; i < cityCount; i++) {
-        for (int j = 0; j < cityCount; j++) {
+    for (int i = 0; i < cityCount; i++)
+    {
+        for (int j = 0; j < cityCount; j++)
+        {
             printf("%4d ", distanceMatrix[i][j]);
         }
         printf("\n");
     }
 }
 
-void addDelivery() {
-    if (deliveryCount >= MAX_DELIVERIES) {
+void addDelivery()
+{
+    if (deliveryCount >= MAX_DELIVERIES)
+    {
         printf("Delivery limit reached.\n");
         return;
     }
@@ -138,7 +167,8 @@ void addDelivery() {
     scanf("%d", &src);
     printf("Enter destination city index: ");
     scanf("%d", &dest);
-    if (src == dest) {
+    if (src == dest)
+    {
         printf("Source and destination cannot be the same.\n");
         return;
     }
@@ -148,7 +178,8 @@ void addDelivery() {
     printf("Select vehicle (0=Van, 1=Truck, 2=Lorry): ");
     scanf("%d", &vType);
 
-    if (weight > vehicles[vType].capacity) {
+    if (weight > vehicles[vType].capacity)
+    {
         printf("Weight exceeds vehicle capacity.\n");
         return;
     }
@@ -166,7 +197,10 @@ void addDelivery() {
     float customerCharge = totalCost + profit;
     float time = D / S;
 
-    deliveries[deliveryCount++] = (Delivery){src, dest, weight, vType, D, cost, fuelUsed, fuelCost, totalCost, profit, customerCharge, time};
+    deliveries[deliveryCount++] = (Delivery)
+    {
+        src, dest, weight, vType, D, cost, fuelUsed, fuelCost, totalCost, profit, customerCharge, time
+    };
 
     printf("\nDELIVERY COST ESTIMATION\n");
     printf("From: %s\nTo: %s\n", cities[src].name, cities[dest].name);
@@ -177,11 +211,13 @@ void addDelivery() {
 
 }
 
-void generateReport() {
+void generateReport()
+{
     float totalDistance = 0, totalTime = 0, totalRevenue = 0, totalProfit = 0;
     float maxDist = 0, minDist = 1e9;
 
-    for (int i = 0; i < deliveryCount; i++) {
+    for (int i = 0; i < deliveryCount; i++)
+    {
         totalDistance += deliveries[i].distance;
         totalTime += deliveries[i].time;
         totalRevenue += deliveries[i].customerCharge;
@@ -189,6 +225,16 @@ void generateReport() {
         if (deliveries[i].distance > maxDist) maxDist = deliveries[i].distance;
         if (deliveries[i].distance < minDist) minDist = deliveries[i].distance;
     }
+
+    printf("\n--- PERFORMANCE REPORT ---\n");
+    printf("Total Deliveries: %d\n", deliveryCount);
+    printf("Total Distance: %.2f km\n", totalDistance);
+    printf("Average Time: %.2f hours\n", totalTime / deliveryCount);
+    printf("Total Revenue: %.2f LKR\n", totalRevenue);
+    printf("Total Profit: %.2f LKR\n", totalProfit);
+    printf("Longest Route: %.2f km\n", maxDist);
+    printf("Shortest Route: %.2f km\n", minDist);
+
 
 }
 
