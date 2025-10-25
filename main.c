@@ -7,6 +7,8 @@
 #define MAX_CITIES 30
 #define MAX_NAME_LEN 50
 #define MAX_DELIVERIES 50
+#define FUEL_PRICE 310.0
+
 
 
 
@@ -22,6 +24,21 @@ typedef struct {
     float efficiency;
 } Vehicle;
 
+typedef struct {
+    int source;
+    int destination;
+    int weight;
+    int vehicleType;
+    float distance;
+    float deliveryCost;
+    float fuelUsed;
+    float fuelCost;
+    float totalCost;
+    float profit;
+    float customerCharge;
+    float time;
+} Delivery;
+
 
 City cities[MAX_CITIES];
 int cityCount = 0;
@@ -33,12 +50,13 @@ Vehicle vehicles[3] = {
     {"Lorry", 10000, 80, 45, 4}
 };
 
+Delivery deliveries[MAX_DELIVERIES];
+int deliveryCount = 0;
 
 void addCity();
 void listCities();
 void setDistance();
 void displayDistanceMatrix();
-
 
 
 int main()
