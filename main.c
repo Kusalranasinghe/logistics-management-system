@@ -63,11 +63,14 @@ void addDelivery();
 void generateReport();
 void saveRoutesToFile();
 void loadRoutesFromFile();
+void loadDeliveriesFromFile();
+void saveDeliveriesToFile();
 
 
 int main()
 {
     loadRoutesFromFile();
+    loadDeliveriesFromFile();
 
     int choice;
     while (1)
@@ -100,6 +103,7 @@ int main()
         }
     }
     saveRoutesToFile();
+    saveDeliveriesToFile();
 
     return 0;
 }
@@ -279,6 +283,56 @@ void saveRoutesToFile() {
             fprintf(fp, "%d ", distanceMatrix[i][j]);
         }
         fprintf(fp, "\n");
+    }
+
+    fclose(fp);
+}
+
+void loadDeliveriesFromFile() {
+    FILE *fp = fopen("deliveries.txt", "r");
+    if (fp == NULL) return;
+
+    fscanf(fp, "%d", &deliveryCount);
+    for (int i = 0; i < deliveryCount; i++) {
+        fscanf(fp, "%d %d %d %d %f %f %f %f %f %f %f %f",
+            &deliveries[i].source,
+            &deliveries[i].destination,
+            &deliveries[i].weight,
+            &deliveries[i].vehicleType,
+            &deliveries[i].distance,
+            &deliveries[i].deliveryCost,
+            &deliveries[i].fuelUsed,
+            &deliveries[i].fuelCost,
+            &deliveries[i].totalCost,
+            &deliveries[i].profit,
+            &deliveries[i].customerCharge,
+            &deliveries[i].time
+        );
+    }
+
+    fclose(fp);
+}
+
+void saveDeliveriesToFile() {
+    FILE *fp = fopen("deliveries.txt", "w");
+    if (fp == NULL) return;
+
+    fprintf(fp, "%d\n", deliveryCount);
+    for (int i = 0; i < deliveryCount; i++) {
+        fprintf(fp, "%d %d %d %d %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f\n",
+            deliveries[i].source,
+            deliveries[i].destination,
+            deliveries[i].weight,
+            deliveries[i].vehicleType,
+            deliveries[i].distance,
+            deliveries[i].deliveryCost,
+            deliveries[i].fuelUsed,
+            deliveries[i].fuelCost,
+            deliveries[i].totalCost,
+            deliveries[i].profit,
+            deliveries[i].customerCharge,
+            deliveries[i].time
+        );
     }
 
     fclose(fp);
