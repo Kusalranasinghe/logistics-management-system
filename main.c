@@ -154,6 +154,21 @@ void addDelivery() {
         return;
     }
 
+    float D = distanceMatrix[src][dest];
+    float R = vehicles[vType].ratePerKm;
+    float S = vehicles[vType].speed;
+    float E = vehicles[vType].efficiency;
+
+    float cost = D * R * (1 + (float)weight / 10000);
+    float fuelUsed = D / E;
+    float fuelCost = fuelUsed * FUEL_PRICE;
+    float totalCost = cost + fuelCost;
+    float profit = cost * 0.25;
+    float customerCharge = totalCost + profit;
+    float time = D / S;
+
+    deliveries[deliveryCount++] = (Delivery){src, dest, weight, vType, D, cost, fuelUsed, fuelCost, totalCost, profit, customerCharge, time};
+
 
 
 
