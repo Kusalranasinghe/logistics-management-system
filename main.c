@@ -6,16 +6,32 @@
 
 #define MAX_CITIES 30
 #define MAX_NAME_LEN 50
+#define MAX_DELIVERIES 50
+
 
 
 typedef struct {
     char name[MAX_NAME_LEN];
 } City;
 
+typedef struct {
+    char type[10];
+    int capacity;
+    float ratePerKm;
+    float speed;
+    float efficiency;
+} Vehicle;
+
+
 City cities[MAX_CITIES];
 int cityCount = 0;
 int distanceMatrix[MAX_CITIES][MAX_CITIES];
 
+Vehicle vehicles[3] = {
+    {"Van", 1000, 30, 60, 12},
+    {"Truck", 5000, 40, 50, 6},
+    {"Lorry", 10000, 80, 45, 4}
+};
 
 
 void addCity();
