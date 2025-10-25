@@ -169,8 +169,12 @@ void addDelivery() {
 
     deliveries[deliveryCount++] = (Delivery){src, dest, weight, vType, D, cost, fuelUsed, fuelCost, totalCost, profit, customerCharge, time};
 
-
-
+    printf("\nDELIVERY COST ESTIMATION\n");
+    printf("From: %s\nTo: %s\n", cities[src].name, cities[dest].name);
+    printf("Vehicle: %s\nWeight: %d kg\n", vehicles[vType].type, weight);
+    printf("Base Cost: %.2f LKR\nFuel Used: %.2f L\nFuel Cost: %.2f LKR\n", cost, fuelUsed, fuelCost);
+    printf("Operational Cost: %.2f LKR\nProfit: %.2f LKR\nCustomer Charge: %.2f LKR\n", totalCost, profit, customerCharge);
+    printf("Estimated Time: %.2f hours\n", time);
 
 }
 
